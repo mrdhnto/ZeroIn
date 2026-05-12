@@ -1,0 +1,18 @@
+[package]
+name = "ZeroIn"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+windows = { version = "0.58", features = [
+    "Foundation_Numerics",
+    "Win32_Foundation",
+    "Win32_Graphics_Direct2D",
+    "Win32_Graphics_Direct2D_Common",
+    "Win32_Graphics_Gdi",
+    "Win32_Graphics_Dxgi_Common",
+    "Win32_System_Com",
+    "Win32_System_LibraryLoader",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+] }
