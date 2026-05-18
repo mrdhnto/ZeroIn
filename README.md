@@ -52,7 +52,7 @@ Default config applies if the file is missing or a value is invalid. Invalid val
 - Windows (uses Win32 + Direct2D APIs)
 
 ```sh
-git clone https://github.com/YOUR_USER/ZeroIn
+git clone https://github.com/mrdhnto/ZeroIn
 cd ZeroIn
 cargo build --release
 ```
