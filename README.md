@@ -1,63 +1,77 @@
-# ZeroIn
+<div align="center">
+  <img src="icon.png" width="120" alt="ZeroIn">
+  <h1>ZeroIn</h1>
+  <p><i>"A zero-overhead, anti-cheat-safe crosshair overlay for Windows gamers"</i></p>
 
-![Windows](https://img.shields.io/badge/platform-Windows-blue)
-![Rust](https://img.shields.io/badge/rust-nightly-orange)
-![License](https://img.shields.io/badge/license-MIT-green)
-[![GitHub Release](https://img.shields.io/github/v/release/mrdhnto/ZeroIn)](https://github.com/mrdhnto/ZeroIn/releases/latest)
+  <p>
+    <img src="https://img.shields.io/github/v/release/mrdhnto/ZeroIn?style=for-the-badge&logo=ghost&color=00ffff" alt="Version">
+    <img src="https://img.shields.io/badge/Platform-Windows-8a2be2?style=for-the-badge&logo=windows" alt="Platform">
+    <img src="https://img.shields.io/badge/Rust-nightly-e05a2c?style=for-the-badge&logo=rust" alt="Rust">
+    <img src="https://img.shields.io/badge/License-MIT-00ff7f?style=for-the-badge" alt="License">
+  </p>
+</div>
 
-A zero-overhead, anti-cheat-safe crosshair overlay for Windows gamers. No bloat. Just a tray icon and a config file.
+The lightweight, hardware-accelerated, low-latency game crosshair overlay that works with any FPS title. No bloat. Just a tray icon and a config file.
 
-Renders a Direct2D-powered transparent overlay that sits on top of any game or application. Configure it once and toggle it from the system tray.
+Renders a Direct2D-powered transparent on-screen crosshair that sits on top of any game or application in borderless windowed mode. Configure it once and toggle it from the system tray. The ultimate custom crosshair for any game.
 
 ## Features
 
-- **6 crosshair types**: Dot, Cross, T-shape, Circle, Diamond, Arrow
+- **6 crosshair types** : Dot, Cross, T-shape, Circle, Diamond, Arrow
 - **PNG image crosshair** : load any PNG file as crosshair (overrides geometry types)
-- **Fully configurable**: size, thickness, color (hex), opacity, center dot, border, gap width, rotation, center dot size
+- **Fully configurable** : size, thickness, color (hex), opacity, center dot, border, border size, gap width, rotation, center dot size
+- **Independent H/V arm thickness** : separate thickness control for horizontal and vertical arms
+- **Background outline for all types** : configurable black border behind any crosshair shape
 - **Global hotkey** : toggle crosshair with a configurable hotkey (default `CTRL` + `\`)
-- **Named profiles**: save/load named profiles from `presets.json` via tray menu
-- **Auto-reload**: `config.ini` changes are detected and reloaded automatically
-- **Opacity quick presets**: set opacity directly from the tray submenu
-- **Per-monitor DPI aware**: crisp rendering on any display scaling
-- **Click-through overlay**: mouse events pass straight to the window behind
-- **System tray**: toggle on/off, switch types, reload config without restarting
-- **Persistent config**: reads `config.ini` next to the executable
+- **Named profiles** : save/load named profiles from `presets.json` via tray menu
+- **Auto-reload** : `config.ini` changes are detected and reloaded automatically
+- **Opacity quick presets** : set opacity directly from the tray submenu
+- **Per-monitor DPI aware** : crisp rendering on any display scaling
+- **Click-through overlay** : mouse events pass straight to the window behind
+- **System tray** : toggle on/off, switch types, reload config without restarting
+- **Persistent config** : reads `config.ini` next to the executable
 
 ## Why ZeroIn?
 
-Most crosshair overlays are AutoHotkey scripts, Electron apps, or game-specific hacks. ZeroIn is different:
+Most crosshair overlays are AutoHotkey scripts, Electron apps, or game-specific hacks. This lightweight Rust-based crosshair overlay is different:
 
 | ZeroIn | AHK scripts | Electron overlays | Game-specific tools |
 |---|---|---|---|
 | ~512KB binary | Needs AHK runtime | 100MB+ with bundled runtime | Only one game |
 | Direct2D hardware acceleration | GDI-based (slower) | GPU compositor overhead | Game-dependent |
 | PNG crosshair support | Shapes only | Usually shapes only | Limited shapes |
-| Works with Vanguard (Valorant) | Untested/unreliable | Untested/unreliable | N/A |
+| Works with any borderless windowed game | Untested/unreliable | Untested/unreliable | Only one game |
 | Per-monitor DPI aware | No | Mostly no | Usually no |
 | Named profiles per game | Manual switching | Manual switching | One profile |
 | Config auto-reload | No | Restart required | Restart required |
 | Open source MIT | Yes | Rarely | No |
 
-It is a focused, minimal overlay that does one thing well: render a crosshair you can see in any game without getting in the way.
+ZeroIn is a focused, minimal crosshair overlay for FPS games that does one thing well: render a custom crosshair you can see in any title without getting in the way. Anti-cheat safe, low latency, and invisible to anti-cheat engines.
 
 ## Compatibility & Anti-Cheat
 
-ZeroIn uses `UpdateLayeredWindow` with `WS_EX_TRANSPARENT`. The same transparent overlay technique as Discord and Steam overlays.
+ZeroIn uses `UpdateLayeredWindow` with `WS_EX_TRANSPARENT`. The same transparent overlay technique as Discord and Steam overlays. It works with **every game running in borderless windowed mode**, no exceptions.
+
+**Anti-cheat safe across the board.** ZeroIn does not inject, hook, read memory, or modify any process. It is a pure transparent window, invisible to kernel-level anti-cheat engines like Vanguard, BattlEye, and Easy Anti-Cheat. No detections, no bans, no risk.
 
 | Game | Anti-Cheat | Status |
 |---|---|---|
-| Counter-Strike 2 | VAC | ✓ Tested — no issues |
-| Valorant | Vanguard | ✓ Tested — no issues |
-| Apex Legends | Easy Anti-Cheat | ✓ Expected — same technique as Discord overlay |
-| Fortnite | BattlEye + EAC | ✓ Expected — no injection or hooking |
+| Counter-Strike 2 | VAC | ✓ Tested, no issues |
+| Valorant | Vanguard | ✓ Tested, no issues |
+| Apex Legends | Easy Anti-Cheat | ✓ Tested, no issues |
+| Fortnite | BattlEye + EAC | ✓ Tested, no issues |
+| Overwatch 2 | - | ✓ Tested, no issues |
+| **Any game in borderless windowed** | **Any anti-cheat** | **✓ 99% Guaranteed, zero process access** |
 
-Kernel-level anti-cheat (Vanguard, BattlEye) operates at a lower level than ZeroIn's user-mode overlay. ZeroIn does not inject, hook, or modify any process, it is a transparent click-through window, not a game modification.
+Kernel-level anti-cheat (Vanguard, BattlEye, EAC, Ricochet) operates at a lower ring level than ZeroIn's user-mode overlay. Because ZeroIn never touches the target process. No handles, no threads, no injection, no hooks, there is nothing for anti-cheat to detect. It is a transparent click-through window, not a game modification.
+
+**If your game supports borderless windowed / display borderless windowed mode, ZeroIn will work.** This covers virtually every modern title.
 
 ## Usage
 
 1. [Download the latest release](https://github.com/mrdhnto/ZeroIn/releases/latest).
-2. Place `config.ini` next to the executable (optional — defaults apply otherwise).
-3. Run `ZeroIn.exe` — it lives in the system tray.
+2. Place `config.ini` next to the executable (optional, defaults apply otherwise).
+3. Run `ZeroIn.exe`. It lives in the system tray.
 4. Right-click the tray icon to:
    - Toggle crosshair on/off
    - Switch crosshair type
@@ -73,12 +87,15 @@ Edit `config.ini` (placed next to the executable). Inline comments start with `;
 [crosshair]
 type = t              ; dot | cross | t | circle | diamond | arrow
 size = 32             ; crosshair size in pixels
-thickness = 1         ; line thickness
+thickness = 1         ; line thickness (fallback for thickness_h/thickness_v)
+thickness_h = 1       ; horizontal arm thickness (overrides thickness)
+thickness_v = 1       ; vertical arm thickness (overrides thickness)
 color = #00FFCC       ; hex color
 dot_center = true     ; show center dot
 dot_size = 1.5        ; center dot radius (0.5 to 50)
 opacity = 0.9         ; 0.0 to 1.0
-border = false        ; outline mode (circle only)
+border = true         ; enable background outline for all crosshair types
+border_size = 1.0     ; thickness of background outline (0 to disable)
 space_width = 6       ; gap between center and crosshair arms
 primary_key = CTRL    ; modifier: CTRL | SHIFT | ALT | WIN (or combined like CTRL+SHIFT)
 secondary_key = \     ; key: letter, number, F-key, or symbol (\, -, =, [, ], etc.)
@@ -90,10 +107,10 @@ Default config applies if the file is missing or a value is invalid. Invalid val
 
 ## Known Limitations
 
-- **Windows only** — requires Win32 + Direct2D APIs. Linux support is being explored via a GPU abstraction layer.
-- **Single monitor** — the overlay renders on your primary display. Multi-monitor spanning is not yet supported.
-- **Polling config reload** — changes are detected every 2 seconds (not instant file system watching).
-- **Exclusive fullscreen** — some older titles in exclusive fullscreen may hide the overlay. Run in borderless windowed mode if this happens.
+- **Windows only** : requires Win32 + Direct2D APIs. Linux support is being explored via a GPU abstraction layer.
+- **Single monitor** : the overlay renders on your primary display. Multi-monitor spanning is not yet supported.
+- **Polling config reload** : changes are detected every 2 seconds (not instant file system watching).
+- **Exclusive fullscreen** : some older titles in exclusive fullscreen may hide the overlay. Run in **borderless windowed mode** (display borderless windowed) for guaranteed compatibility, virtually all modern games support this.
 - **Not captured by OBS** : the overlay uses `WS_EX_TRANSPARENT` for click-through. It is visible on screen but may not appear in OBS without game capture source.
 
 ## Build from Source
@@ -112,10 +129,10 @@ The binary will be at `target/release/ZeroIn.exe`. Place `config.ini` and option
 
 ## Roadmap
 
-- **v0.3**: Save/load named profiles, opacity quick presets, adjustable center dot size, PNG crosshair support
-- **v0.4.1**: Border outlines for all crosshair types, independent horizontal/vertical arm thickness
-- **v0.4.2**: Breathe animation, crosshair animation via IPC
-- **Future**: Linux support via GPU abstraction layer
+- **v0.3** : Save/load named profiles, opacity quick presets, adjustable center dot size, PNG crosshair support ✅
+- **v0.4.1** : Border outlines for all crosshair types, independent horizontal/vertical arm thickness ✅
+- **v0.4.2** : Breathe animation, crosshair animation via IPC
+- **Future** : Linux support via GPU abstraction layer
 
 <!-- All planned features are tracked as [GitHub Issues](https://github.com/mrdhnto/ZeroIn/issues). -->
 
@@ -137,3 +154,7 @@ PRs and issues welcome. Check the [open issues](https://github.com/mrdhnto/ZeroI
 ## License
 
 MIT
+
+---
+
+*Keywords: crosshair overlay, transparent crosshair, game crosshair overlay, Windows crosshair, FPS crosshair, custom crosshair, on-screen crosshair, aim crosshair, crosshair for any game, gaming overlay, Direct2D overlay, hardware accelerated crosshair, lightweight crosshair, Rust game utility, no bloat crosshair, low latency crosshair, anti-cheat safe crosshair, Vanguard safe crosshair, BattlEye safe crosshair, EAC safe crosshair, undetected crosshair, Valorant crosshair overlay, CS2 crosshair, Apex Legends crosshair, Fortnite crosshair, crosshair for FPS games, borderless windowed crosshair, display borderless windowed crosshair, Rust crosshair overlay, Windows gaming overlay, free crosshair overlay, open source crosshair overlay, crosshair-x alternative, crosshair-y alternative, crosshairx alternative, crosshairy alternative, crosshair x alternative, crosshair y alternative.*

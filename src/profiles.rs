@@ -9,10 +9,13 @@ pub struct Profile {
     pub crosshair_type: String,
     pub size: f32,
     pub thickness: f32,
+    pub thickness_h: f32,
+    pub thickness_v: f32,
     pub color_hex: String,
     pub dot_center: bool,
     pub opacity: f32,
     pub border: bool,
+    pub border_size: f32,
     pub space_width: f32,
     pub rotation: f32,
     pub dot_size: f32,
@@ -41,10 +44,13 @@ impl Profile {
             crosshair_type: config.crosshair_type.as_str().to_string(),
             size: config.size,
             thickness: config.thickness,
+            thickness_h: config.thickness_h,
+            thickness_v: config.thickness_v,
             color_hex: config.color_hex.clone(),
             dot_center: config.dot_center,
             opacity: config.opacity,
             border: config.border,
+            border_size: config.border_size,
             space_width: config.space_width,
             rotation: config.rotation,
             dot_size: config.dot_size,
@@ -75,10 +81,13 @@ impl Profiles {
             config.crosshair_type = crate::config::CrosshairType::from_str(&p.crosshair_type);
             config.size = p.size;
             config.thickness = p.thickness;
+            config.thickness_h = p.thickness_h;
+            config.thickness_v = p.thickness_v;
             config.color_hex = p.color_hex.clone();
             config.dot_center = p.dot_center;
             config.opacity = p.opacity;
             config.border = p.border;
+            config.border_size = p.border_size;
             config.space_width = p.space_width;
             config.rotation = p.rotation;
             config.dot_size = p.dot_size;
@@ -92,10 +101,13 @@ impl Profiles {
                 p.crosshair_type = config.crosshair_type.as_str().to_string();
                 p.size = config.size;
                 p.thickness = config.thickness;
+                p.thickness_h = config.thickness_h;
+                p.thickness_v = config.thickness_v;
                 p.color_hex = config.color_hex.clone();
                 p.dot_center = config.dot_center;
                 p.opacity = config.opacity;
                 p.border = config.border;
+                p.border_size = config.border_size;
                 p.space_width = config.space_width;
                 p.rotation = config.rotation;
                 p.dot_size = config.dot_size;

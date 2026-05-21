@@ -130,10 +130,13 @@ pub struct Config {
     pub crosshair_type: CrosshairType,
     pub size: f32,
     pub thickness: f32,
+    pub thickness_h: f32,
+    pub thickness_v: f32,
     pub color_hex: String,
     pub dot_center: bool,
     pub opacity: f32,
     pub border: bool,
+    pub border_size: f32,
     pub space_width: f32,
     pub dot_size: f32,
     pub primary_key: String,
@@ -148,10 +151,13 @@ impl Default for Config {
             crosshair_type: CrosshairType::Cross,
             size: 24.0,
             thickness: 2.0,
+            thickness_h: 2.0,
+            thickness_v: 2.0,
             color_hex: "#FF0000".into(),
             dot_center: true,
             opacity: 0.85,
             border: true,
+            border_size: 0.0,
             space_width: 0.0,
             dot_size: 1.5,
             primary_key: "CTRL".into(),
@@ -190,6 +196,9 @@ impl Config {
         };
 
         let mut config = Self::default();
+        let mut thickness_explicit = false;
+        let mut thickness_h_explicit = false;
+        let mut thickness_v_explicit = false;
         let mut current_section = String::new();
 
         for line in content.lines() {
@@ -225,6 +234,23 @@ impl Config {
                                 log_warning(&format!("thickness {v} too small, clamped to 1"));
                             }
                             config.thickness = v.max(1.0);
+                            thickness_explicit = true;
+                        }
+                        "thickness_h" => {
+                            let v = value.parse::<f32>().unwrap_or(2.0);
+                            if v < 1.0 {
+                                log_warning(&format!("thickness_h {v} too small, clamped to 1"));
+                            }
+                            config.thickness_h = v.max(1.0);
+                            thickness_h_explicit = true;
+                        }
+                        "thickness_v" => {
+                            let v = value.parse::<f32>().unwrap_or(2.0);
+                            if v < 1.0 {
+                                log_warning(&format!("thickness_v {v} too small, clamped to 1"));
+                            }
+                            config.thickness_v = v.max(1.0);
+                            thickness_v_explicit = true;
                         }
                         "color" => {
                             if !value.starts_with('#') || value.len() < 7 {
@@ -246,6 +272,13 @@ impl Config {
                         "border" => {
                             config.border = value.eq_ignore_ascii_case("true")
                                 || value == "1"
+                        }
+                        "border_size" => {
+                            let v = value.parse::<f32>().unwrap_or(0.0);
+                            if v < 0.0 {
+                                log_warning("border_size negative, clamped to 0");
+                            }
+                            config.border_size = v.max(0.0);
                         }
                         "space_width" => {
                             let v = value.parse::<f32>().unwrap_or(0.0).max(0.0);
@@ -282,6 +315,13 @@ impl Config {
                     }
                 }
             }
+        }
+
+        if !thickness_h_explicit && thickness_explicit {
+            config.thickness_h = config.thickness;
+        }
+        if !thickness_v_explicit && thickness_explicit {
+            config.thickness_v = config.thickness;
         }
 
         if Hotkey::from_parts(&config.primary_key, &config.secondary_key).is_none() {

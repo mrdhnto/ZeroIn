@@ -353,7 +353,7 @@ unsafe fn create_tray_icon(hwnd: HWND, icon: HICON) -> Result<()> {
     nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     nid.uCallbackMessage = WM_TRAYICON;
     nid.hIcon = icon;
-    let tip = WStr::new("Crosshair");
+    let tip = WStr::new("ZeroIn Crosshair");
     for (i, &c) in tip.0.iter().enumerate().take(128) {
         nid.szTip[i] = c;
     }
@@ -703,6 +703,17 @@ unsafe fn render(app: &mut App) -> Result<()> { unsafe {
         None,
     )?;
 
+    let border_color = D2D1_COLOR_F {
+        r: 0.0,
+        g: 0.0,
+        b: 0.0,
+        a: 0.5,
+    };
+    let border_brush = rt.CreateSolidColorBrush(
+        &border_color as *const D2D1_COLOR_F,
+        None,
+    ).ok();
+
     let (mut dpi_x, mut dpi_y) = (96.0f32, 96.0f32);
     app.factory.GetDesktopDpi(&mut dpi_x, &mut dpi_y);
     let scale = dpi_x / 96.0;
@@ -762,11 +773,16 @@ unsafe fn render(app: &mut App) -> Result<()> { unsafe {
         }
     } else {
         crosshair::draw(
-            target, &brush, app.crosshair_type, cx, cy,
-            app.config.size * scale, app.config.thickness * scale,
+            target, &brush, border_brush.as_ref(), app.crosshair_type, cx, cy,
+            app.config.size * scale,
+            app.config.thickness_h * scale,
+            app.config.thickness_v * scale,
             app.config.dot_center,
-            app.config.border, app.config.space_width * scale,
-            app.config.rotation, app.config.dot_size,
+            app.config.border,
+            app.config.border_size * scale,
+            app.config.space_width * scale,
+            app.config.rotation,
+            app.config.dot_size,
         );
     }
 
