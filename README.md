@@ -127,15 +127,6 @@ cargo build --release
 
 The binary will be at `target/release/ZeroIn.exe`. Place `config.ini` and optionally `icon.ico` next to it.
 
-## Roadmap
-
-- **v0.3** : Save/load named profiles, opacity quick presets, adjustable center dot size, PNG crosshair support ✅
-- **v0.4.1** : Border outlines for all crosshair types, independent horizontal/vertical arm thickness ✅
-- **v0.4.2** : Breathe animation, crosshair animation via IPC
-- **Future** : Linux support via GPU abstraction layer
-
-<!-- All planned features are tracked as [GitHub Issues](https://github.com/mrdhnto/ZeroIn/issues). -->
-
 ## Technical
 
 - Uses `windows` crate (Win32 API) for overlay window, Direct2D rendering, and tray icon
